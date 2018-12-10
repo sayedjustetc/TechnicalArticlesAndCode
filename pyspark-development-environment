@@ -1,0 +1,58 @@
+Using Hortonworks HDP:
+Check at: http://sitestree.com/pyspark-development-environment/'>http://sitestree.com/pyspark-development-environment
+
+--comes with pyspark
+However, default python version for Pyspark is 2.7
+To change Python version for Pyspark use:
+export PYSPARK_PYTHON='/usr/bin/python3.6'
+To make the export permanent, change it on .bash_profile file
+vi .bash_profile
+the put the folowing line on .bash_profile
+export PYSPARK_PYTHON='/usr/bin/python3.6'
+----
+your HDP by default will not have Python3.6. Install as below:
+
+To install Python3.6, you can use
+
+yum install python36  [or similar will work]
+
+If it does not work, first try
+yum upgrade     
+the
+yum -y install python36
+or
+yum -y install python36*
+
+---
+You can try to change your System python to 3.6 by using [soft link, verify the order of paths in the command]
+ln -fs /usr/bin/python3.6 /usr/bin/python
+[ref: https://cmdlinetips.com/2011/07/how-to-create-a-soft-link-to-a-directory-in-linuxmac-os-x/]
+---
+
+If you want to use packages such as numpy or networkx inside pyspark, you will need to install them.
+pip install numpy
+python3.6 -m pip install numpy
+or similar might/should work.
+
+By default HDP does not come with pip or numpy or networkx installed.
+You will need to install pip first
+yum install pip
+yum install python-pip
+yum install python36-pip
+yum install python27-pip
+or similar will work
+----
+then you can use pip to install numpy or networkx or similar
+---
+
+For installing numpy or networkx or scipy or similar libraries on HDP and to work inside Pyspark,
+You can also get : get-pip.py first then use this to install pip 
+
+wget https://bootstrap.pypa.io/get-pip.py
+python3.6 get-pip.py
+python3.6 -m pip install numpy
+
+
+---
+You might need to run the following, if you see Python issues while installing numpy
+yum install python36-devel
